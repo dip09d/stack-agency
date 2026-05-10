@@ -22,8 +22,14 @@ def send_enquiry_email(enquiry_data: dict, db: Session):
     """
     Sends a professional HTML email notification for a new enquiry.
     """
-    # Fetch email settings from database if available
-    db_settings = {s.key: s.value for s in db.query(models.Settings).all()}
+    # Initialize empty settings
+    db_settings = {}
+    
+    # Try to fetch email settings from database
+    try:
+        db_settings = {s.key: s.value for s in db.query(models.Settings).all()}
+    except Exception as e:
+        print(f"Using default email settings (DB settings error: {e})")
     
     # Priority: Database Settings > Environment Variables
     smtp_server = db_settings.get("SMTP_SERVER", SMTP_SERVER)
