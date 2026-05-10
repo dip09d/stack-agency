@@ -10,7 +10,10 @@ import time
 from . import models, schemas, database, mailer
 
 # Dynamic path for uploads (Server vs Local)
-UPLOAD_DIR = os.getenv("UPLOAD_DIR", "src/assets/images")
+# Try to find the Angular src folder relative to this file
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DEFAULT_UPLOAD_DIR = os.path.join(BASE_DIR, "src", "assets", "images")
+UPLOAD_DIR = os.getenv("UPLOAD_DIR", DEFAULT_UPLOAD_DIR)
 
 app = FastAPI(title="Stack Agency API")
 
