@@ -15,9 +15,18 @@ except Exception as e:
 
 app = FastAPI(title="Stack Agency API")
 
+# CORS Middleware
+origins = [
+    "http://localhost:4200",
+    "http://localhost:8001",
+    "https://stacknix.it.com",
+    "https://www.stacknix.it.com",
+    "https://agency.stacknix.it.com",
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
