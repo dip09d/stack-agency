@@ -33,7 +33,7 @@ except Exception as e:
 def get_team(db: Session = Depends(database.get_db)):
     return db.query(models.TeamMember).all()
 
-@app.post("/api/team")
+@app.post("/api/team", response_model=schemas.TeamMember)
 async def create_team_member(
     name: str = Form(...),
     role: str = Form(...),
@@ -65,7 +65,7 @@ async def create_team_member(
     
     return db_member
 
-@app.put("/api/team/{member_id}")
+@app.put("/api/team/{member_id}", response_model=schemas.TeamMember)
 async def update_team_member(
     member_id: int,
     name: str = Form(None),
@@ -93,8 +93,8 @@ async def update_team_member(
         db_member.imageUrl = f"assets/images/{file_name}"
     
     db.commit()
-    db_member_refreshed = db.query(models.TeamMember).filter(models.TeamMember.id == member_id).first()
-    return db_member_refreshed
+    db.refresh(db_member)
+    return db_member
 
 @app.delete("/api/team/{member_id}")
 def delete_team_member(member_id: int, db: Session = Depends(database.get_db)):
