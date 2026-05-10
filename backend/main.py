@@ -7,7 +7,11 @@ from typing import List, Dict
 from . import models, schemas, database, mailer
 
 # Create tables if they don't exist
-models.Base.metadata.create_all(bind=database.engine)
+# Create tables
+try:
+    models.Base.metadata.create_all(bind=database.engine)
+except Exception as e:
+    print(f"Database tables already initialized or error: {e}")
 
 app = FastAPI(title="Stack Agency API")
 
@@ -33,7 +37,7 @@ def create_enquiry(enquiry: schemas.EnquiryBase, db: Session = Depends(database.
     db.refresh(db_enquiry)
     
     # Send email notification using dynamic settings from DB
-    mailer.send_enquiry_email(db, enquiry.dict())
+    mailer.send_enquiry_email(enquiry.dict(), db)
     
     return db_enquiry
 
