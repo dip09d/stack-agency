@@ -1,11 +1,26 @@
 from fastapi import FastAPI, Depends, HTTPException, BackgroundTasks, File, UploadFile, Form
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import HTMLResponse
+from sqlalchemy.orm import Session
+from typing import List, Dict
 import shutil
 import os
 
-# ... (rest of imports)
+from . import models, schemas, database, mailer
 
 # Path for uploaded images
 UPLOAD_DIR = "/var/www/stack-frontend/assets/images"
+
+app = FastAPI(title="Stack Agency API")
+
+# Simple CORS for Production
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=False,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.post("/api/team")
 async def create_team_member(
@@ -14,6 +29,10 @@ async def create_team_member(
     image: UploadFile = File(...),
     db: Session = Depends(database.get_db)
 ):
+    # Ensure directory exists
+    if not os.path.exists(UPLOAD_DIR):
+        os.makedirs(UPLOAD_DIR, exist_ok=True)
+
     # Save the image
     file_extension = os.path.splitext(image.filename)[1]
     file_name = f"team-{name.lower().replace(' ', '-')}{file_extension}"
