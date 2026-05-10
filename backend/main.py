@@ -5,11 +5,12 @@ from sqlalchemy.orm import Session
 from typing import List, Dict
 import shutil
 import os
+import time
 
 from . import models, schemas, database, mailer
 
-# Path for uploaded images
-UPLOAD_DIR = "/var/www/stack-frontend/assets/images"
+# Dynamic path for uploads (Server vs Local)
+UPLOAD_DIR = os.getenv("UPLOAD_DIR", "src/assets/images")
 
 app = FastAPI(title="Stack Agency API")
 
@@ -45,7 +46,8 @@ async def create_team_member(
 
     # Save the image
     file_extension = os.path.splitext(image.filename)[1]
-    file_name = f"team-{name.lower().replace(' ', '-')}{file_extension}"
+    # Add timestamp for cache busting
+    file_name = f"team-{name.lower().replace(' ', '-')}-{int(time.time())}{file_extension}"
     file_path = os.path.join(UPLOAD_DIR, file_name)
     
     with open(file_path, "wb") as buffer:
@@ -83,15 +85,25 @@ async def update_team_member(
     if image:
         # Save the new image
         file_extension = os.path.splitext(image.filename)[1]
-        file_name = f"team-{db_member.name.lower().replace(' ', '-')}{file_extension}"
+        # Add timestamp for cache busting
+        file_name = f"team-{db_member.name.lower().replace(' ', '-')}-{int(time.time())}{file_extension}"
         file_path = os.path.join(UPLOAD_DIR, file_name)
         with open(file_path, "wb") as buffer:
             shutil.copyfileobj(image.file, buffer)
         db_member.imageUrl = f"assets/images/{file_name}"
     
     db.commit()
-    db.refresh(db_member)
-    return db_member
+    db_member_refreshed = db.query(models.TeamMember).filter(models.TeamMember.id == member_id).first()
+    return db_member_refreshed
+
+@app.delete("/api/team/{member_id}")
+def delete_team_member(member_id: int, db: Session = Depends(database.get_db)):
+    db_member = db.query(models.TeamMember).filter(models.TeamMember.id == member_id).first()
+    if not db_member:
+        raise HTTPException(status_code=404, detail="Member not found")
+    db.delete(db_member)
+    db.commit()
+    return {"message": "Member deleted successfully"}
 
 @app.get("/api/enquiries", response_model=List[schemas.Enquiry])
 def get_enquiries(db: Session = Depends(database.get_db)):
