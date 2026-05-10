@@ -1,6 +1,7 @@
-from fastapi import FastAPI, Depends, HTTPException, BackgroundTasks, File, UploadFile, Form
+from fastapi import FastAPI, Depends, HTTPException, BackgroundTasks, File, UploadFile, Form, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
 from sqlalchemy.orm import Session
 from typing import List, Dict
 import shutil
@@ -9,19 +10,23 @@ import time
 
 from . import models, schemas, database, mailer
 
-# Dynamic path for uploads (Server vs Local)
-# Try to find the Angular src folder relative to this file
+# Path for uploaded images
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DEFAULT_UPLOAD_DIR = os.path.join(BASE_DIR, "src", "assets", "images")
 UPLOAD_DIR = os.getenv("UPLOAD_DIR", DEFAULT_UPLOAD_DIR)
 
 app = FastAPI(title="Stack Agency API")
 
+# Mount the images folder so FastAPI can serve them
+if not os.path.exists(UPLOAD_DIR):
+    os.makedirs(UPLOAD_DIR, exist_ok=True)
+app.mount("/uploads", StaticFiles(directory=UPLOAD_DIR), name="uploads")
+
 # Simple CORS for Production
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
-    allow_credentials=False,
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -33,30 +38,32 @@ except Exception as e:
     print(f"Database tables already initialized or error: {e}")
 
 @app.get("/api/team", response_model=List[schemas.TeamMember])
-def get_team(db: Session = Depends(database.get_db)):
-    return db.query(models.TeamMember).all()
+def get_team(request: Request, db: Session = Depends(database.get_db)):
+    members = db.query(models.TeamMember).all()
+    # Prepend the base URL to image paths
+    base_url = str(request.base_url)
+    for m in members:
+        if m.imageUrl and not m.imageUrl.startswith("http"):
+            # If stored as 'assets/images/team.png', convert to 'http://.../uploads/team.png'
+            filename = os.path.basename(m.imageUrl)
+            m.imageUrl = f"{base_url}uploads/{filename}"
+    return members
 
 @app.post("/api/team", response_model=schemas.TeamMember)
 async def create_team_member(
+    request: Request,
     name: str = Form(...),
     role: str = Form(...),
     image: UploadFile = File(...),
     db: Session = Depends(database.get_db)
 ):
-    # Ensure directory exists
-    if not os.path.exists(UPLOAD_DIR):
-        os.makedirs(UPLOAD_DIR, exist_ok=True)
-
-    # Save the image
     file_extension = os.path.splitext(image.filename)[1]
-    # Add timestamp for cache busting
     file_name = f"team-{name.lower().replace(' ', '-')}-{int(time.time())}{file_extension}"
     file_path = os.path.join(UPLOAD_DIR, file_name)
     
     with open(file_path, "wb") as buffer:
         shutil.copyfileobj(image.file, buffer)
     
-    # Save to database
     db_member = models.TeamMember(
         name=name,
         role=role,
@@ -66,10 +73,13 @@ async def create_team_member(
     db.commit()
     db.refresh(db_member)
     
+    # Return full URL
+    db_member.imageUrl = f"{request.base_url}uploads/{file_name}"
     return db_member
 
 @app.put("/api/team/{member_id}", response_model=schemas.TeamMember)
 async def update_team_member(
+    request: Request,
     member_id: int,
     name: str = Form(None),
     role: str = Form(None),
@@ -86,9 +96,7 @@ async def update_team_member(
         db_member.role = role
     
     if image:
-        # Save the new image
         file_extension = os.path.splitext(image.filename)[1]
-        # Add timestamp for cache busting
         file_name = f"team-{db_member.name.lower().replace(' ', '-')}-{int(time.time())}{file_extension}"
         file_path = os.path.join(UPLOAD_DIR, file_name)
         with open(file_path, "wb") as buffer:
@@ -97,6 +105,10 @@ async def update_team_member(
     
     db.commit()
     db.refresh(db_member)
+    
+    # Return full URL
+    filename = os.path.basename(db_member.imageUrl)
+    db_member.imageUrl = f"{request.base_url}uploads/{filename}"
     return db_member
 
 @app.delete("/api/team/{member_id}")
