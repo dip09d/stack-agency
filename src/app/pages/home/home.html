@@ -1,0 +1,108 @@
+<!-- Hero Section -->
+<section class="relative min-h-screen flex items-center pt-20 bg-primary overflow-hidden">
+  <!-- Abstract Hero Background -->
+  <div class="absolute inset-0 z-0">
+    <img src="assets/images/hero-abstract.png" alt="Hero Background" class="w-full h-full object-cover opacity-30">
+    <div class="absolute inset-0 bg-gradient-to-r from-primary via-primary/80 to-transparent"></div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <div class="max-w-3xl">
+      <h1 class="text-5xl md:text-8xl font-black text-white leading-[1.1] mb-8 tracking-tighter">
+        We Build Websites That <span class="text-accent italic">Grow</span> Your Business<span class="text-accent">.</span>
+      </h1>
+      <p class="text-xl md:text-2xl text-slate-300 mb-12 leading-relaxed font-medium">
+        From high-converting food delivery platforms to custom e-commerce ecosystems and service marketplaces. We serve startups and enterprises with power.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-6">
+        <a routerLink="/contact" class="px-10 py-5 bg-accent text-white font-black rounded-xl hover:scale-105 transition-all shadow-2xl shadow-accent/40 text-center uppercase tracking-widest">
+          Start Your Project
+        </a>
+        <a routerLink="/portfolio" class="px-10 py-5 bg-white/10 text-white font-black rounded-xl hover:bg-white/20 transition-all backdrop-blur-md text-center border border-white/10 uppercase tracking-widest">
+          Our Work
+        </a>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Floating Stats or Decoration (Optional) -->
+</section>
+
+<!-- What We Do Section -->
+<section class="py-24 lg:py-40 bg-soft-gray">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="mb-20 text-center lg:text-left">
+      <h2 class="text-4xl md:text-6xl font-black text-primary mb-6 tracking-tight">What We Do<span class="text-accent">.</span></h2>
+      <p class="text-slate-500 max-w-2xl text-lg font-medium">Specialized solutions for industries that demand high performance and seamless user experiences.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      @for (service of services(); track service.id) {
+        <app-service-card [service]="service"></app-service-card>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Our Work Portfolio Preview -->
+<section class="py-24 lg:py-40">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col lg:flex-row justify-between items-end mb-20 gap-8">
+      <div class="max-w-2xl">
+        <h2 class="text-4xl md:text-6xl font-black text-primary mb-6 tracking-tight">Our Work<span class="text-accent">.</span></h2>
+        <p class="text-slate-500 text-lg font-medium">A selection of recent projects that showcase our commitment to quality and innovation.</p>
+      </div>
+      <a routerLink="/portfolio" class="text-primary font-black flex items-center hover:text-accent transition-colors text-lg uppercase tracking-widest">
+        View Full Portfolio
+        <svg class="h-6 w-6 ml-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+      @for (project of projects().slice(0, 3); track project.id) {
+        <app-project-card [project]="project"></app-project-card>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="py-24 lg:py-40 bg-navy text-white overflow-hidden relative">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <div class="text-center mb-20">
+      <h2 class="text-4xl md:text-6xl font-black mb-6 tracking-tight">Client Love<span class="text-accent">.</span></h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+      @for (t of testimonials(); track t.author) {
+        <div class="bg-white/5 p-12 rounded-3xl backdrop-blur-xl border border-white/10">
+          <div class="text-accent mb-8">
+            <span class="material-icons text-5xl">format_quote</span>
+          </div>
+          <p class="text-xl text-slate-300 italic mb-10 leading-relaxed font-medium">
+            "{{ t.quote }}"
+          </p>
+          <div>
+            <h4 class="font-black text-white text-lg">{{ t.author }}</h4>
+            <p class="text-slate-500 font-bold uppercase tracking-tighter text-sm">{{ t.role }}</p>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Technologies Section -->
+<section class="py-24 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-wrap justify-center items-center gap-12 md:gap-24 opacity-50 grayscale hover:grayscale-0 transition-all duration-700">
+      <div class="text-2xl font-black tracking-tighter text-slate-400">ANGULAR</div>
+      <div class="text-2xl font-black tracking-tighter text-slate-400">REACT</div>
+      <div class="text-2xl font-black tracking-tighter text-slate-400">NODE.JS</div>
+      <div class="text-2xl font-black tracking-tighter text-slate-400">AWS</div>
+      <div class="text-2xl font-black tracking-tighter text-slate-400">DOCKER</div>
+    </div>
+  </div>
+</section>

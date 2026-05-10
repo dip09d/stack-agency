@@ -1,0 +1,43 @@
+<section class="pt-40 pb-20 lg:pt-56 lg:pb-32 bg-soft-gray">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-3xl mb-16">
+      <h1 class="text-5xl md:text-8xl font-black mb-8 tracking-tighter leading-none text-primary">
+        Our Work<span class="text-accent">.</span>
+      </h1>
+      <p class="text-xl text-slate-500 font-medium leading-relaxed">
+        We take pride in every project we deliver. Explore our portfolio of high-impact digital solutions.
+      </p>
+    </div>
+
+    <!-- Filter Controls -->
+    <div class="flex flex-wrap gap-4 mb-20">
+      @for (cat of categories; track cat) {
+        <button 
+          (click)="setCategory(cat)"
+          class="px-8 py-3 rounded-full font-bold transition-all border-2"
+          [class.bg-primary]="selectedCategory() === cat"
+          [class.text-white]="selectedCategory() === cat"
+          [class.border-primary]="selectedCategory() === cat"
+          [class.bg-white]="selectedCategory() !== cat"
+          [class.text-primary]="selectedCategory() !== cat"
+          [class.border-slate-200]="selectedCategory() !== cat"
+          [class.hover:border-accent]="selectedCategory() !== cat">
+          {{ cat }}
+        </button>
+      }
+    </div>
+
+    <!-- Project Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+      @for (project of filteredProjects(); track project.id) {
+        <app-project-card [project]="project"></app-project-card>
+      }
+    </div>
+    
+    @if (filteredProjects().length === 0) {
+      <div class="text-center py-20 bg-white rounded-3xl border-2 border-dashed border-slate-200">
+        <p class="text-slate-400 font-bold text-xl">No projects found in this category yet.</p>
+      </div>
+    }
+  </div>
+</section>

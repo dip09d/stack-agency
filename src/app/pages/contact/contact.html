@@ -1,0 +1,142 @@
+<section class="pt-40 pb-20 lg:pt-56 lg:pb-32 bg-navy text-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-3xl">
+      <h1 class="text-5xl md:text-8xl font-black mb-8 tracking-tighter leading-none">
+        Let's Build<span class="text-accent">.</span>
+      </h1>
+      <p class="text-xl text-slate-400 font-medium leading-relaxed">
+        Ready to take your digital presence to the next level? Tell us about your project.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="py-24 lg:py-40 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-20">
+      <!-- Contact Form -->
+      <div class="lg:col-span-2">
+        <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="space-y-8">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="space-y-2">
+              <label for="name" class="text-sm font-black uppercase tracking-widest text-primary">Your Name</label>
+              <input type="text" id="name" formControlName="name" placeholder="John Doe"
+                     class="w-full px-6 py-4 bg-soft-gray border-2 border-transparent focus:border-accent rounded-xl outline-none transition-all font-medium">
+            </div>
+            <div class="space-y-2">
+              <label for="email" class="text-sm font-black uppercase tracking-widest text-primary">Email Address</label>
+              <input type="email" id="email" formControlName="email" placeholder="john@example.com"
+                     class="w-full px-6 py-4 bg-soft-gray border-2 border-transparent focus:border-accent rounded-xl outline-none transition-all font-medium">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="space-y-2">
+              <label for="company" class="text-sm font-black uppercase tracking-widest text-primary">Company Name</label>
+              <input type="text" id="company" formControlName="company" placeholder="Acme Inc."
+                     class="w-full px-6 py-4 bg-soft-gray border-2 border-transparent focus:border-accent rounded-xl outline-none transition-all font-medium">
+            </div>
+            <div class="space-y-2">
+              <label for="projectType" class="text-sm font-black uppercase tracking-widest text-primary">Project Type</label>
+              <select id="projectType" formControlName="projectType"
+                      class="w-full px-6 py-4 bg-soft-gray border-2 border-transparent focus:border-accent rounded-xl outline-none transition-all font-medium appearance-none">
+                @for (type of projectTypes; track type) {
+                  <option [value]="type">{{ type }}</option>
+                }
+              </select>
+            </div>
+          </div>
+
+          <div class="space-y-2">
+            <label for="budget" class="text-sm font-black uppercase tracking-widest text-primary">Estimated Budget</label>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+              @for (b of budgets; track b) {
+                <button type="button" 
+                        (click)="contactForm.get('budget')?.setValue(b)"
+                        class="py-4 rounded-xl border-2 font-bold transition-all text-sm"
+                        [class.bg-primary]="contactForm.get('budget')?.value === b"
+                        [class.text-white]="contactForm.get('budget')?.value === b"
+                        [class.border-primary]="contactForm.get('budget')?.value === b"
+                        [class.bg-white]="contactForm.get('budget')?.value !== b"
+                        [class.text-slate-400]="contactForm.get('budget')?.value !== b"
+                        [class.border-slate-100]="contactForm.get('budget')?.value !== b"
+                        [class.hover:border-accent]="contactForm.get('budget')?.value !== b">
+                  {{ b }}
+                </button>
+              }
+            </div>
+          </div>
+
+          <div class="space-y-2">
+            <label for="message" class="text-sm font-black uppercase tracking-widest text-primary">Project Details</label>
+            <textarea id="message" formControlName="message" rows="6" placeholder="Tell us about your goals..."
+                      class="w-full px-6 py-4 bg-soft-gray border-2 border-transparent focus:border-accent rounded-xl outline-none transition-all font-medium"></textarea>
+          </div>
+
+          <button type="submit" [disabled]="contactForm.invalid"
+                  class="w-full py-6 bg-accent text-white font-black rounded-xl hover:scale-[1.02] active:scale-100 transition-all shadow-2xl shadow-accent/40 uppercase tracking-[0.2em] disabled:opacity-50">
+            Submit Proposal
+          </button>
+        </form>
+
+        <!-- Trust Badges -->
+        <div class="mt-12 flex flex-wrap gap-8 items-center justify-center lg:justify-start opacity-50">
+          <div class="flex items-center text-xs font-black uppercase tracking-widest text-primary">
+            <span class="material-icons-outlined text-accent mr-2">speed</span>
+            We reply within 24h
+          </div>
+          <div class="flex items-center text-xs font-black uppercase tracking-widest text-primary">
+            <span class="material-icons-outlined text-accent mr-2">lightbulb</span>
+            Free Consultation
+          </div>
+          <div class="flex items-center text-xs font-black uppercase tracking-widest text-primary">
+            <span class="material-icons-outlined text-accent mr-2">verified</span>
+            No-obligation Quote
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="space-y-16">
+        <div>
+          <h4 class="text-xs font-black uppercase tracking-[0.3em] text-slate-400 mb-8">What Happens Next?</h4>
+          <div class="space-y-10">
+            @for (step of [
+              { title: 'Project Review', desc: 'Our lead developer and designer review your inquiry.' },
+              { title: 'Intro Call', desc: 'We schedule a 30-min call to discuss your goals in detail.' },
+              { title: 'Proposal', desc: 'You receive a detailed scope, timeline, and quote.' }
+            ]; track step.title; let i = $index) {
+              <div class="flex gap-6">
+                <div class="shrink-0 w-10 h-10 bg-primary text-white rounded-lg flex items-center justify-center font-black">
+                  {{ i + 1 }}
+                </div>
+                <div>
+                  <h5 class="font-bold text-primary mb-1">{{ step.title }}</h5>
+                  <p class="text-slate-500 text-sm leading-relaxed">{{ step.desc }}</p>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+
+        <div class="p-10 bg-soft-gray rounded-3xl border border-slate-100">
+          <h4 class="text-xs font-black uppercase tracking-[0.3em] text-slate-400 mb-8">Direct Contact</h4>
+          <div class="space-y-6">
+            <div class="flex items-center">
+              <span class="material-icons-outlined text-accent mr-4">email</span>
+              <span class="font-bold text-primary">hello@stack.agency</span>
+            </div>
+            <div class="flex items-center">
+              <span class="material-icons-outlined text-accent mr-4">phone</span>
+              <span class="font-bold text-primary">+1 (555) 987-6543</span>
+            </div>
+            <div class="flex items-center">
+              <span class="material-icons-outlined text-accent mr-4">location_on</span>
+              <span class="font-bold text-primary">Silicon Valley, CA</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

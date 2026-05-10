@@ -1,0 +1,84 @@
+<section class="pt-40 pb-24 lg:pt-56 lg:pb-40 bg-navy text-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-3xl">
+      <h1 class="text-5xl md:text-8xl font-black mb-8 tracking-tighter leading-none">
+        Our Story<span class="text-accent">.</span>
+      </h1>
+      <p class="text-xl md:text-2xl text-slate-400 font-medium">
+        We believe every business deserves a powerful digital presence.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Values & Story -->
+<section class="py-24 lg:py-40 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center mb-32">
+      <div>
+        <h2 class="text-3xl md:text-5xl font-black text-primary mb-8 tracking-tight">Innovation Through Partnership<span class="text-accent">.</span></h2>
+        <p class="text-slate-600 text-lg leading-relaxed mb-6 font-medium">
+          Stack was founded on the principle that technology should be an enabler, not a barrier. We work closely with our clients to understand their unique challenges and build solutions that drive growth.
+        </p>
+        <p class="text-slate-600 text-lg leading-relaxed font-medium">
+          Over the last 5 years, we've evolved from a small design studio into a full-service agency, but our core mission remains the same: delivering excellence in every pixel.
+        </p>
+      </div>
+      <div class="grid grid-cols-2 gap-6">
+        @for (value of [
+          { title: 'Quality', desc: 'Crafting pixel-perfect, robust solutions.' },
+          { title: 'Innovation', desc: 'Staying ahead of the digital curve.' },
+          { title: 'Partnership', desc: 'Your success is our success.' },
+          { title: 'Transparency', desc: 'Clear communication at every step.' }
+        ]; track value.title) {
+          <div class="p-8 bg-soft-gray rounded-2xl border border-slate-100">
+            <h4 class="text-lg font-bold text-primary mb-2">{{ value.title }}</h4>
+            <p class="text-slate-500 text-sm leading-relaxed">{{ value.desc }}</p>
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-12 text-center border-y border-slate-100 py-16 mb-32">
+      <div>
+        <div class="text-4xl md:text-6xl font-black text-primary mb-2 italic tracking-tighter">50+</div>
+        <div class="text-slate-400 font-bold uppercase tracking-widest text-xs">Projects Delivered</div>
+      </div>
+      <div>
+        <div class="text-4xl md:text-6xl font-black text-primary mb-2 italic tracking-tighter">30+</div>
+        <div class="text-slate-400 font-bold uppercase tracking-widest text-xs">Happy Clients</div>
+      </div>
+      <div>
+        <div class="text-4xl md:text-6xl font-black text-primary mb-2 italic tracking-tighter">5+</div>
+        <div class="text-slate-400 font-bold uppercase tracking-widest text-xs">Years Experience</div>
+      </div>
+      <div>
+        <div class="text-4xl md:text-6xl font-black text-primary mb-2 italic tracking-tighter">12</div>
+        <div class="text-slate-400 font-bold uppercase tracking-widest text-xs">Team Members</div>
+      </div>
+    </div>
+
+    <!-- Team Section -->
+    <div>
+      <div class="text-center mb-20">
+        <h2 class="text-4xl font-black text-primary tracking-tight">The Visionaries<span class="text-accent">.</span></h2>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+        @for (m of team(); track m.name) {
+          <div class="group text-center">
+            <div class="aspect-square bg-slate-100 rounded-3xl mb-6 overflow-hidden relative shadow-sm group-hover:shadow-2xl transition-all duration-500">
+              <div class="absolute inset-0 bg-accent/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+              <!-- Profile Image Placeholder -->
+              <div class="w-full h-full flex items-center justify-center text-slate-300 font-black text-2xl uppercase tracking-widest">
+                {{ m.name.split(' ')[0] }}
+              </div>
+            </div>
+            <h4 class="text-xl font-bold text-primary mb-1">{{ m.name }}</h4>
+            <p class="text-slate-500 font-medium text-sm">{{ m.role }}</p>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</section>

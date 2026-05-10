@@ -1,0 +1,55 @@
+<nav class="fixed top-0 z-50 w-full transition-all duration-300" 
+     [class.bg-white]="isScrolled()" 
+     [class.shadow-md]="isScrolled()" 
+     [class.py-4]="!isScrolled()" 
+     [class.py-2]="isScrolled()">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between h-16 items-center">
+      <div class="flex-shrink-0 flex items-center">
+        <a routerLink="/" class="text-3xl font-black tracking-tighter transition-colors"
+           [class.text-white]="!isScrolled()"
+           [class.text-primary]="isScrolled()">
+          STACK<span class="text-accent">.</span>
+        </a>
+      </div>
+      
+      <div class="hidden md:flex items-center space-x-10">
+        <a routerLink="/" 
+           routerLinkActive="text-accent" 
+           [routerLinkActiveOptions]="{exact: true}"
+           class="font-semibold transition-colors hover:text-accent"
+           [class.text-slate-300]="!isScrolled()"
+           [class.text-slate-600]="isScrolled()">Home</a>
+        <a routerLink="/services" 
+           routerLinkActive="text-accent"
+           class="font-semibold transition-colors hover:text-accent"
+           [class.text-slate-300]="!isScrolled()"
+           [class.text-slate-600]="isScrolled()">Services</a>
+        <a routerLink="/portfolio" 
+           routerLinkActive="text-accent"
+           class="font-semibold transition-colors hover:text-accent"
+           [class.text-slate-300]="!isScrolled()"
+           [class.text-slate-600]="isScrolled()">Portfolio</a>
+        <a routerLink="/about" 
+           routerLinkActive="text-accent"
+           class="font-semibold transition-colors hover:text-accent"
+           [class.text-slate-300]="!isScrolled()"
+           [class.text-slate-600]="isScrolled()">About</a>
+        
+        <a routerLink="/contact" 
+           class="px-6 py-2.5 bg-accent text-white font-bold rounded-lg hover:brightness-110 transition-all shadow-lg shadow-accent/20">
+          Start a Project
+        </a>
+      </div>
+
+      <!-- Mobile menu button (Simplified) -->
+      <div class="md:hidden">
+        <button type="button" [class.text-white]="!isScrolled()" [class.text-primary]="isScrolled()">
+          <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
