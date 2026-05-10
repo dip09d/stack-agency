@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends, HTTPException
+from fastapi import FastAPI, Depends, HTTPException, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
 from sqlalchemy.orm import Session
@@ -6,7 +6,6 @@ from typing import List, Dict
 
 from . import models, schemas, database, mailer
 
-# Create tables if they don't exist
 # Create tables
 try:
     models.Base.metadata.create_all(bind=database.engine)
@@ -15,19 +14,11 @@ except Exception as e:
 
 app = FastAPI(title="Stack Agency API")
 
-# CORS Middleware
-origins = [
-    "http://localhost:4200",
-    "http://localhost:8001",
-    "https://stacknix.it.com",
-    "https://www.stacknix.it.com",
-    "https://agency.stacknix.it.com",
-]
-
+# Simple CORS for Production
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
+    allow_origins=["*"],
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -39,14 +30,18 @@ def get_team(db: Session = Depends(database.get_db)):
 
 # Endpoint for Enquiries
 @app.post("/api/enquiries", response_model=schemas.Enquiry)
-def create_enquiry(enquiry: schemas.EnquiryBase, db: Session = Depends(database.get_db)):
+def create_enquiry(
+    enquiry: schemas.EnquiryBase, 
+    background_tasks: BackgroundTasks,
+    db: Session = Depends(database.get_db)
+):
     db_enquiry = models.Enquiry(**enquiry.dict())
     db.add(db_enquiry)
     db.commit()
     db.refresh(db_enquiry)
     
-    # Send email notification using dynamic settings from DB
-    mailer.send_enquiry_email(enquiry.dict(), db)
+    # Send email notification in the BACKGROUND
+    background_tasks.add_task(mailer.send_enquiry_email, enquiry.dict(), db)
     
     return db_enquiry
 
