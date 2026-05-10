@@ -6,9 +6,10 @@
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex justify-between h-16 items-center">
       <div class="flex-shrink-0 flex items-center">
-        <a routerLink="/" class="text-3xl font-black tracking-tighter transition-colors"
-           [class.text-white]="!isScrolled()"
-           [class.text-primary]="isScrolled()">
+        <a routerLink="/" class="flex items-center gap-3 text-3xl font-black tracking-tighter transition-colors"
+           [class.text-white]="!isScrolled() && !isPortfolioPage()"
+           [class.text-primary]="isScrolled() || isPortfolioPage()">
+          <img src="favicon.png" alt="Stack Logo" class="h-10 w-10 rounded-lg shadow-lg">
           STACK<span class="text-accent">.</span>
         </a>
       </div>
@@ -18,23 +19,23 @@
            routerLinkActive="text-accent" 
            [routerLinkActiveOptions]="{exact: true}"
            class="font-semibold transition-colors hover:text-accent"
-           [class.text-slate-300]="!isScrolled()"
-           [class.text-slate-600]="isScrolled()">Home</a>
+           [class.text-slate-300]="!isScrolled() && !isPortfolioPage()"
+           [class.text-slate-600]="isScrolled() || isPortfolioPage()">Home</a>
         <a routerLink="/services" 
            routerLinkActive="text-accent"
            class="font-semibold transition-colors hover:text-accent"
-           [class.text-slate-300]="!isScrolled()"
-           [class.text-slate-600]="isScrolled()">Services</a>
+           [class.text-slate-300]="!isScrolled() && !isPortfolioPage()"
+           [class.text-slate-600]="isScrolled() || isPortfolioPage()">Services</a>
         <a routerLink="/portfolio" 
            routerLinkActive="text-accent"
            class="font-semibold transition-colors hover:text-accent"
-           [class.text-slate-300]="!isScrolled()"
-           [class.text-slate-600]="isScrolled()">Portfolio</a>
+           [class.text-slate-300]="!isScrolled() && !isPortfolioPage()"
+           [class.text-slate-600]="isScrolled() || isPortfolioPage()">Portfolio</a>
         <a routerLink="/about" 
            routerLinkActive="text-accent"
            class="font-semibold transition-colors hover:text-accent"
-           [class.text-slate-300]="!isScrolled()"
-           [class.text-slate-600]="isScrolled()">About</a>
+           [class.text-slate-300]="!isScrolled() && !isPortfolioPage()"
+           [class.text-slate-600]="isScrolled() || isPortfolioPage()">About</a>
         
         <a routerLink="/contact" 
            class="px-6 py-2.5 bg-accent text-white font-bold rounded-lg hover:brightness-110 transition-all shadow-lg shadow-accent/20">
@@ -42,14 +43,41 @@
         </a>
       </div>
 
-      <!-- Mobile menu button (Simplified) -->
-      <div class="md:hidden">
-        <button type="button" [class.text-white]="!isScrolled()" [class.text-primary]="isScrolled()">
-          <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
+      <!-- Mobile menu button -->
+      <div class="md:hidden flex items-center">
+        <button type="button" (click)="toggleMenu()" 
+                [class.text-white]="!isScrolled() && !isPortfolioPage() && !isMenuOpen()" 
+                [class.text-primary]="(isScrolled() || isPortfolioPage()) && !isMenuOpen()"
+                [class.text-primary]="isMenuOpen()"
+                class="transition-colors">
+          @if (isMenuOpen()) {
+            <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          } @else {
+            <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          }
         </button>
       </div>
     </div>
   </div>
+
+  <!-- Mobile Menu Dropdown -->
+  @if (isMenuOpen()) {
+    <div class="md:hidden bg-white border-t border-slate-100 animate-in slide-in-from-top duration-300 shadow-2xl">
+      <div class="px-4 pt-4 pb-10 space-y-4">
+        <a routerLink="/" class="block px-4 py-3 text-2xl font-black text-primary border-b border-slate-50" routerLinkActive="text-accent">Home</a>
+        <a routerLink="/services" class="block px-4 py-3 text-2xl font-black text-primary border-b border-slate-50" routerLinkActive="text-accent">Services</a>
+        <a routerLink="/portfolio" class="block px-4 py-3 text-2xl font-black text-primary border-b border-slate-50" routerLinkActive="text-accent">Portfolio</a>
+        <a routerLink="/about" class="block px-4 py-3 text-2xl font-black text-primary border-b border-slate-50" routerLinkActive="text-accent">About</a>
+        <div class="pt-6 px-4">
+          <a routerLink="/contact" class="block w-full py-5 bg-accent text-white text-center font-black rounded-2xl shadow-xl shadow-accent/30 text-xl">
+            Start a Project
+          </a>
+        </div>
+      </div>
+    </div>
+  }
 </nav>

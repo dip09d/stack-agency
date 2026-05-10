@@ -3,7 +3,7 @@
     <img [src]="project().imageUrl" [alt]="project().name" 
          class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
     <div class="absolute inset-0 bg-navy/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center backdrop-blur-[2px]">
-      <a routerLink="/portfolio" class="px-8 py-3 bg-accent text-white font-bold rounded-full transform translate-y-4 group-hover:translate-y-0 transition-all duration-500">
+      <a routerLink="/contact" [queryParams]="{project: project().name}" class="px-8 py-3 bg-accent text-white font-bold rounded-full transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 shadow-xl shadow-accent/20">
         View Project
       </a>
     </div>

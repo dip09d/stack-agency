@@ -39,25 +39,6 @@
       </div>
     </div>
 
-    <!-- Stats -->
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-12 text-center border-y border-slate-100 py-16 mb-32">
-      <div>
-        <div class="text-4xl md:text-6xl font-black text-primary mb-2 italic tracking-tighter">50+</div>
-        <div class="text-slate-400 font-bold uppercase tracking-widest text-xs">Projects Delivered</div>
-      </div>
-      <div>
-        <div class="text-4xl md:text-6xl font-black text-primary mb-2 italic tracking-tighter">30+</div>
-        <div class="text-slate-400 font-bold uppercase tracking-widest text-xs">Happy Clients</div>
-      </div>
-      <div>
-        <div class="text-4xl md:text-6xl font-black text-primary mb-2 italic tracking-tighter">5+</div>
-        <div class="text-slate-400 font-bold uppercase tracking-widest text-xs">Years Experience</div>
-      </div>
-      <div>
-        <div class="text-4xl md:text-6xl font-black text-primary mb-2 italic tracking-tighter">12</div>
-        <div class="text-slate-400 font-bold uppercase tracking-widest text-xs">Team Members</div>
-      </div>
-    </div>
 
     <!-- Team Section -->
     <div>
@@ -67,11 +48,19 @@
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
         @for (m of team(); track m.name) {
           <div class="group text-center">
-            <div class="aspect-square bg-slate-100 rounded-3xl mb-6 overflow-hidden relative shadow-sm group-hover:shadow-2xl transition-all duration-500">
-              <div class="absolute inset-0 bg-accent/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-              <!-- Profile Image Placeholder -->
-              <div class="w-full h-full flex items-center justify-center text-slate-300 font-black text-2xl uppercase tracking-widest">
-                {{ m.name.split(' ')[0] }}
+            <div class="aspect-square bg-slate-50 rounded-[40px] mb-6 overflow-hidden relative shadow-sm group-hover:shadow-2xl transition-all duration-500 border border-slate-100 flex items-center justify-center">
+              <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+              
+              <!-- Professional Placeholder with Initials and Accent -->
+              <div class="relative z-10 w-full h-full flex flex-col items-center justify-center">
+                <div class="w-20 h-20 bg-gradient-to-br from-primary to-navy rounded-full flex items-center justify-center text-white font-black text-2xl shadow-xl group-hover:scale-110 transition-transform duration-500">
+                  {{ m.name.split(' ')[0][0] }}{{ m.name.split(' ')[1] ? m.name.split(' ')[1][0] : '' }}
+                </div>
+                <div class="mt-4 flex gap-1 opacity-20 group-hover:opacity-100 transition-opacity">
+                  <span class="material-icons text-accent text-[10px]">restaurant</span>
+                  <span class="material-icons text-accent text-[10px]">code</span>
+                  <span class="material-icons text-accent text-[10px]">bolt</span>
+                </div>
               </div>
             </div>
             <h4 class="text-xl font-bold text-primary mb-1">{{ m.name }}</h4>

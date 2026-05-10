@@ -70,23 +70,41 @@
 
 <!-- Testimonials Section -->
 <section class="py-24 lg:py-40 bg-navy text-white overflow-hidden relative">
+  <!-- Background Accents -->
+  <div class="absolute top-0 right-0 w-96 h-96 bg-accent/10 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2"></div>
+  <div class="absolute bottom-0 left-0 w-96 h-96 bg-primary/30 rounded-full blur-[120px] translate-y-1/2 -translate-x-1/2"></div>
+
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-    <div class="text-center mb-20">
-      <h2 class="text-4xl md:text-6xl font-black mb-6 tracking-tight">Client Love<span class="text-accent">.</span></h2>
+    <div class="text-center mb-24">
+      <h2 class="text-4xl md:text-7xl font-black mb-6 tracking-tighter">Client Love<span class="text-accent">.</span></h2>
+      <p class="text-slate-400 font-bold uppercase tracking-[0.3em] text-sm">Success Stories from Our Partners</p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
       @for (t of testimonials(); track t.author) {
-        <div class="bg-white/5 p-12 rounded-3xl backdrop-blur-xl border border-white/10">
-          <div class="text-accent mb-8">
-            <span class="material-icons text-5xl">format_quote</span>
+        <div class="group bg-white/[0.03] p-12 rounded-[40px] backdrop-blur-2xl border border-white/10 hover:border-accent/30 transition-all duration-500 hover:-translate-y-2 flex flex-col h-full">
+          <div class="text-accent mb-10 flex justify-between items-start">
+            <!-- SVG Quote Icon for 100% Reliability -->
+            <svg class="h-12 w-12 opacity-30 group-hover:opacity-100 transition-opacity fill-current" viewBox="0 0 24 24">
+              <path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H15.017C14.4647 8 14.017 8.44772 14.017 9V12C14.017 12.5523 13.5693 13 13.017 13H11.017V21H14.017ZM5.017 21L5.017 18C5.017 16.8954 5.91243 16 7.017 16H10.017C10.5693 16 11.017 15.5523 11.017 15V9C11.017 8.44772 10.5693 8 10.017 8H6.017C5.46472 8 5.017 8.44772 5.017 9V12C5.017 12.5523 4.56929 13 4.017 13H2.017V21H5.017Z" />
+            </svg>
+            <div class="flex gap-1">
+              @for (star of [1,2,3,4,5]; track star) {
+                <span class="material-icons text-accent text-lg">star</span>
+              }
+            </div>
           </div>
-          <p class="text-xl text-slate-300 italic mb-10 leading-relaxed font-medium">
+          <p class="text-xl text-slate-200 mb-12 leading-relaxed font-medium italic flex-grow">
             "{{ t.quote }}"
           </p>
-          <div>
-            <h4 class="font-black text-white text-lg">{{ t.author }}</h4>
-            <p class="text-slate-500 font-bold uppercase tracking-tighter text-sm">{{ t.role }}</p>
+          <div class="flex items-center gap-5 pt-8 border-t border-white/5">
+            <div class="w-14 h-14 rounded-full bg-accent/20 flex items-center justify-center text-accent font-black text-xl">
+              {{ t.author[0] }}
+            </div>
+            <div>
+              <h4 class="font-black text-white text-lg tracking-tight">{{ t.author }}</h4>
+              <p class="text-slate-500 font-bold uppercase tracking-widest text-[10px]">{{ t.role }}</p>
+            </div>
           </div>
         </div>
       }
@@ -95,14 +113,46 @@
 </section>
 
 <!-- Technologies Section -->
-<section class="py-24 bg-white">
+<section class="py-24 bg-white border-t border-slate-50">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex flex-wrap justify-center items-center gap-12 md:gap-24 opacity-50 grayscale hover:grayscale-0 transition-all duration-700">
-      <div class="text-2xl font-black tracking-tighter text-slate-400">ANGULAR</div>
-      <div class="text-2xl font-black tracking-tighter text-slate-400">REACT</div>
-      <div class="text-2xl font-black tracking-tighter text-slate-400">NODE.JS</div>
-      <div class="text-2xl font-black tracking-tighter text-slate-400">AWS</div>
-      <div class="text-2xl font-black tracking-tighter text-slate-400">DOCKER</div>
+    <div class="text-center mb-16">
+      <h3 class="text-xs font-black uppercase tracking-[0.4em] text-slate-400">Expertise in World-Class Technologies</h3>
+    </div>
+    <div class="flex flex-wrap justify-center items-center gap-16 md:gap-32">
+      <!-- Laravel -->
+      <div class="group flex flex-col items-center gap-4 transition-all duration-500">
+        <div class="w-20 h-20 grayscale group-hover:grayscale-0 opacity-40 group-hover:opacity-100 transition-all duration-500 transform group-hover:scale-110">
+          <img src="assets/images/logo-laravel.png" alt="Laravel" class="w-full h-full object-contain">
+        </div>
+        <span class="text-[10px] font-black uppercase tracking-widest text-slate-300 group-hover:text-primary transition-colors">Laravel</span>
+      </div>
+
+      <!-- Angular -->
+      <div class="group flex flex-col items-center gap-4 transition-all duration-500">
+        <div class="w-20 h-20 grayscale group-hover:grayscale-0 opacity-40 group-hover:opacity-100 transition-all duration-500 transform group-hover:scale-110">
+          <img src="assets/images/logo-angular.png" alt="Angular" class="w-full h-full object-contain">
+        </div>
+        <span class="text-[10px] font-black uppercase tracking-widest text-slate-300 group-hover:text-primary transition-colors">Angular</span>
+      </div>
+
+      <!-- Python -->
+      <div class="group flex flex-col items-center gap-4 transition-all duration-500">
+        <div class="w-20 h-20 grayscale group-hover:grayscale-0 opacity-40 group-hover:opacity-100 transition-all duration-500 transform group-hover:scale-110">
+          <img src="assets/images/logo-python.png" alt="Python" class="w-full h-full object-contain">
+        </div>
+        <span class="text-[10px] font-black uppercase tracking-widest text-slate-300 group-hover:text-primary transition-colors">Python</span>
+      </div>
+
+      <!-- AWS -->
+      <div class="group flex flex-col items-center gap-4 transition-all duration-500">
+        <div class="w-20 h-20 flex items-center justify-center grayscale group-hover:grayscale-0 opacity-40 group-hover:opacity-100 transition-all duration-500 transform group-hover:scale-110">
+          <div class="relative">
+            <span class="text-3xl font-black tracking-tighter text-slate-800">AWS</span>
+            <div class="absolute -bottom-2 left-0 w-full h-1.5 bg-[#FF9900] rounded-full transform -rotate-2 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+          </div>
+        </div>
+        <span class="text-[10px] font-black uppercase tracking-widest text-slate-300 group-hover:text-primary transition-colors">Cloud Infra</span>
+      </div>
     </div>
   </div>
 </section>

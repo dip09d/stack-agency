@@ -12,6 +12,7 @@ import { ProjectCard } from '../../components/project-card/project-card';
 })
 export class Home {
   private agencyService = inject(AgencyService);
+  
   services = this.agencyService.getServices();
   projects = this.agencyService.getProjects();
   testimonials = this.agencyService.getTestimonials();
