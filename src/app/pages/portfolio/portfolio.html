@@ -1,6 +1,6 @@
-<section class="pt-40 pb-20 lg:pt-56 lg:pb-32 bg-soft-gray">
+<section class="pt-32 pb-16 md:pt-40 md:pb-24 lg:pt-56 lg:pb-32 bg-soft-gray">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="max-w-3xl mb-16">
+    <div class="max-w-3xl mb-12 md:mb-16">
       <h1 class="text-5xl md:text-8xl font-black mb-8 tracking-tighter leading-none text-primary">
         Our Work<span class="text-accent">.</span>
       </h1>
@@ -10,7 +10,7 @@
     </div>
 
     <!-- Filter Controls -->
-    <div class="flex flex-wrap gap-4 mb-20">
+    <div class="flex flex-wrap gap-3 md:gap-4 mb-12 md:mb-20">
       @for (cat of categories; track cat) {
         <button 
           (click)="setCategory(cat)"

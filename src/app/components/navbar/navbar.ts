@@ -11,16 +11,25 @@ import { filter } from 'rxjs';
 export class Navbar {
   isScrolled = signal(false);
   isMenuOpen = signal(false);
-  isPortfolioPage = signal(false);
+  isLightPage = signal(false);
   private router = inject(Router);
 
   constructor() {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
-    ).subscribe((event: any) => {
-      this.isPortfolioPage.set(event.url.includes('/portfolio'));
-      this.isMenuOpen.set(false); // Close menu on navigation
+    ).subscribe(() => {
+      this.updatePageState();
+      this.isMenuOpen.set(false); // Force close menu on navigation
     });
+
+    // Set initial state
+    this.updatePageState();
+  }
+
+  private updatePageState() {
+    const url = this.router.url;
+    // About and Portfolio have light/white heroes, so they need a dark header
+    this.isLightPage.set(url.includes('/about') || url.includes('/portfolio'));
   }
 
   @HostListener('window:scroll', [])
@@ -30,5 +39,9 @@ export class Navbar {
 
   toggleMenu() {
     this.isMenuOpen.update(v => !v);
+  }
+
+  closeMenu() {
+    this.isMenuOpen.set(false);
   }
 }

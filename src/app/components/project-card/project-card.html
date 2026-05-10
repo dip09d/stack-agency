@@ -1,24 +1,36 @@
-<div class="bg-white rounded-[12px] border border-slate-100 overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 group">
-  <div class="relative aspect-[16/9] overflow-hidden bg-slate-100">
+<div class="bg-white rounded-[32px] border border-slate-100 overflow-hidden shadow-[0_10px_30px_-10px_rgba(0,0,0,0.05)] hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.1)] transition-all duration-700 group h-full flex flex-col">
+  <div class="relative aspect-[4/3] overflow-hidden bg-slate-100">
     <img [src]="project().imageUrl" [alt]="project().name" 
-         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
-    <div class="absolute inset-0 bg-navy/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center backdrop-blur-[2px]">
-      <a routerLink="/contact" [queryParams]="{project: project().name}" class="px-8 py-3 bg-accent text-white font-bold rounded-full transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 shadow-xl shadow-accent/20">
+         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 ease-out">
+    
+    <!-- Premium Overlay -->
+    <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center backdrop-blur-md">
+      <a routerLink="/contact" [queryParams]="{project: project().name}" class="px-8 py-4 bg-white text-primary font-black rounded-2xl transform translate-y-8 group-hover:translate-y-0 transition-all duration-500 shadow-2xl uppercase tracking-widest text-xs hover:bg-accent hover:text-white">
         View Project
       </a>
     </div>
-    <div class="absolute top-4 left-4">
-      <span class="px-3 py-1 bg-white/90 backdrop-blur-sm text-primary text-xs font-bold rounded-full shadow-sm">
+
+    <!-- Category Badge -->
+    <div class="absolute top-6 left-6">
+      <span class="px-4 py-2 bg-white/90 backdrop-blur-md text-primary text-[10px] font-black uppercase tracking-widest rounded-xl shadow-lg border border-white/20">
         {{ project().category }}
       </span>
     </div>
   </div>
-  <div class="p-8">
-    <h3 class="text-xl font-extrabold text-primary mb-2 group-hover:text-accent transition-colors">
+  
+  <div class="p-6 md:p-8 flex-grow">
+    <h3 class="text-2xl font-black text-primary mb-3 group-hover:text-accent transition-colors leading-tight">
       {{ project().name }}
     </h3>
-    <p class="text-slate-500 text-sm leading-relaxed">
+    <p class="text-slate-500 text-sm font-medium leading-relaxed mb-4">
       {{ project().description }}
     </p>
+  </div>
+  
+  <div class="px-6 pb-6 md:px-8 md:pb-8">
+     <div class="w-full h-px bg-slate-100 mb-6 group-hover:bg-accent/20 transition-colors"></div>
+     <div class="flex items-center text-accent text-[10px] font-black uppercase tracking-[0.2em]">
+        Explore Case Study
+     </div>
   </div>
 </div>

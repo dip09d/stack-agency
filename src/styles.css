@@ -8,12 +8,22 @@
   --color-soft-gray: #f8f9fa;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   @apply bg-white text-slate-800 antialiased;
   font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+}
+
+* {
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .bg-navy { background-color: var(--color-primary); }
 .text-navy { color: var(--color-primary); }
 .bg-coral { background-color: var(--color-accent); }
 .text-coral { color: var(--color-accent); }
+

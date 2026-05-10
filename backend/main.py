@@ -49,6 +49,8 @@ def get_team(request: Request, db: Session = Depends(database.get_db)):
             m.imageUrl = f"{base_url}uploads/{filename}"
     return members
 
+MAX_FILE_SIZE = 50 * 1024 * 1024 # 50 MB
+
 @app.post("/api/team", response_model=schemas.TeamMember)
 async def create_team_member(
     request: Request,
@@ -57,6 +59,16 @@ async def create_team_member(
     image: UploadFile = File(...),
     db: Session = Depends(database.get_db)
 ):
+    # Check file size
+    file_size = 0
+    if image:
+        image.file.seek(0, os.SEEK_END)
+        file_size = image.file.tell()
+        image.file.seek(0)
+        
+        if file_size > MAX_FILE_SIZE:
+            raise HTTPException(status_code=413, detail=f"File too large. Maximum size allowed is 50MB. Uploaded: {file_size / (1024*1024):.2f}MB")
+
     file_extension = os.path.splitext(image.filename)[1]
     file_name = f"team-{name.lower().replace(' ', '-')}-{int(time.time())}{file_extension}"
     file_path = os.path.join(UPLOAD_DIR, file_name)
@@ -96,6 +108,14 @@ async def update_team_member(
         db_member.role = role
     
     if image:
+        # Check file size
+        image.file.seek(0, os.SEEK_END)
+        file_size = image.file.tell()
+        image.file.seek(0)
+        
+        if file_size > MAX_FILE_SIZE:
+            raise HTTPException(status_code=413, detail=f"File too large. Maximum size allowed is 50MB. Uploaded: {file_size / (1024*1024):.2f}MB")
+
         file_extension = os.path.splitext(image.filename)[1]
         file_name = f"team-{db_member.name.lower().replace(' ', '-')}-{int(time.time())}{file_extension}"
         file_path = os.path.join(UPLOAD_DIR, file_name)
