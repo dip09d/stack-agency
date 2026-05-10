@@ -8,7 +8,7 @@ import { firstValueFrom } from 'rxjs';
 })
 export class AgencyService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:8001/api';
+  private apiUrl = 'https://agency.stacknix.it.com/api';
 
   // These are kept STATIC as requested
   private services = signal<Service[]>([
