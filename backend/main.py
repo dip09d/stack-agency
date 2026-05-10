@@ -1,10 +1,38 @@
-from fastapi import FastAPI, Depends, HTTPException, BackgroundTasks
-from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import HTMLResponse
-from sqlalchemy.orm import Session
-from typing import List, Dict
+from fastapi import FastAPI, Depends, HTTPException, BackgroundTasks, File, UploadFile, Form
+import shutil
+import os
 
-from . import models, schemas, database, mailer
+# ... (rest of imports)
+
+# Path for uploaded images
+UPLOAD_DIR = "/var/www/stack-frontend/assets/images"
+
+@app.post("/api/team")
+async def create_team_member(
+    name: str = Form(...),
+    role: str = Form(...),
+    image: UploadFile = File(...),
+    db: Session = Depends(database.get_db)
+):
+    # Save the image
+    file_extension = os.path.splitext(image.filename)[1]
+    file_name = f"team-{name.lower().replace(' ', '-')}{file_extension}"
+    file_path = os.path.join(UPLOAD_DIR, file_name)
+    
+    with open(file_path, "wb") as buffer:
+        shutil.copyfileobj(image.file, buffer)
+    
+    # Save to database
+    db_member = models.TeamMember(
+        name=name,
+        role=role,
+        imageUrl=f"assets/images/{file_name}"
+    )
+    db.add(db_member)
+    db.commit()
+    db.refresh(db_member)
+    
+    return db_member
 
 # Create tables
 try:
