@@ -35,11 +35,38 @@ If you change the design or any `.ts` files in `src/`:
 
 1. **On your Local Machine**:
    ```bash
-   # Build the production files
+   # 1. Build the production files
    npm run build
    
-   # Upload the build to your server
-   scp -r dist/stack/browser/* root@139.59.74.9:/var/www/stack-frontend
+   # 2. Add, commit and push everything (including the dist/ folder)
+   git add .
+   git commit -m "Update frontend"
+   git push origin main
+   ```
+
+2. **On your Server**:
+   ```bash
+   cd /var/www/stack
+   git pull origin main
+   # Files are now live in /var/www/stack/dist/browser
+   ```
+
+### ⚙️ One-Time Setup: Point Nginx to the new path
+Since we changed where the build files go, you must update your server config **one time**:
+
+1. **Open the config file**:
+   ```bash
+   sudo nano /etc/nginx/sites-available/stack
+   ```
+2. **Find the root line** (usually looks like `root /var/www/stack-frontend;`) and change it to:
+   ```nginx
+   root /var/www/stack/dist/browser;
+   ```
+3. **Save and Exit**: Press `CTRL+O`, `Enter`, then `CTRL+X`.
+4. **Test & Restart**:
+   ```bash
+   sudo nginx -t
+   sudo systemctl restart nginx
    ```
 
 ---
@@ -53,7 +80,7 @@ If you change the design or any `.ts` files in `src/`:
 
 ---
 
-## 📂 Server Paths
+## 📂 Server Paths (Updated)
 * **API Code**: `/var/www/stack`
-* **Website Files**: `/var/www/stack-frontend`
+* **Website Files**: `/var/www/stack/dist/browser` (Previously /var/www/stack-frontend)
 * **Nginx Config**: `/etc/nginx/sites-available/stack`

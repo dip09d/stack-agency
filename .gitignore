@@ -11,7 +11,7 @@ backend_*.log
 
 # Node
 node_modules/
-dist/
+# dist/ removed to allow tracking build artifacts
 .angular/
 
 # System
