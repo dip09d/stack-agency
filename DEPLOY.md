@@ -9,78 +9,64 @@ This file contains the exact steps to maintain and update your live website and 
 
 ---
 
-## 🐍 1. Updating the BACKEND (Python)
+## ⚡ Quick Update (Standard Workflow)
 
-If you change any files in the `backend/` folder:
+If you have made changes to **both** the Frontend and Backend, follow these steps:
 
-1. **On your Local Machine**:
-   ```bash
-   git add .
-   git commit -m "Your update message"
-   git push origin main
-   ```
+### 1. On your Local Machine:
+```bash
+# 1. Build the frontend
+npm run build
 
-2. **On your Server**:
-   ```bash
-   cd /var/www/stack
-   git pull origin main
-   sudo systemctl restart stack-backend
-   ```
+# 2. Push everything to GitHub
+git add .
+git commit -m "Deployment update"
+git push origin main
+```
 
----
+### 2. On your Server:
+```bash
+# 1. Go to the project folder
+cd /var/www/stack
 
-## 🅰️ 2. Updating the FRONTEND (Angular)
+# 2. Pull the new code
+git pull origin main
 
-If you change the design or any `.ts` files in `src/`:
+# 3. Restart the backend service
+sudo systemctl restart stack-backend
 
-1. **On your Local Machine**:
-   ```bash
-   # 1. Build the production files
-   npm run build
-   
-   # 2. Add, commit and push everything (including the dist/ folder)
-   git add .
-   git commit -m "Update frontend"
-   git push origin main
-   ```
-
-2. **On your Server**:
-   ```bash
-   cd /var/www/stack
-   git pull origin main
-   # Files are now live in /var/www/stack/dist/browser
-   ```
-
-### ⚙️ One-Time Setup: Point Nginx to the new path
-Since we changed where the build files go, you must update your server config **one time**:
-
-1. **Open the config file**:
-   ```bash
-   sudo nano /etc/nginx/sites-available/stack
-   ```
-2. **Find the root line** (usually looks like `root /var/www/stack-frontend;`) and change it to:
-   ```nginx
-   root /var/www/stack/dist/browser;
-   ```
-3. **Save and Exit**: Press `CTRL+O`, `Enter`, then `CTRL+X`.
-4. **Test & Restart**:
-   ```bash
-   sudo nginx -t
-   sudo systemctl restart nginx
-   ```
+# 4. (Optional) Restart Nginx if you changed config
+sudo systemctl restart nginx
+```
 
 ---
 
-## 🛠️ 3. Troubleshooting (Server Commands)
+## 🅰️ Frontend-Only Update
+If you **only** changed the Angular design/code:
+1. **Local**: `npm run build` -> `git add .` -> `git commit` -> `git push`
+2. **Server**: `cd /var/www/stack` -> `git pull origin main`
+
+---
+
+## 🐍 Backend-Only Update
+If you **only** changed the Python files in `backend/`:
+1. **Local**: `git add .` -> `git commit` -> `git push`
+2. **Server**: `cd /var/www/stack` -> `git pull origin main` -> `sudo systemctl restart stack-backend`
+
+---
+
+## 🛠️ Troubleshooting (Server Commands)
 
 * **Check Backend Status**: `sudo systemctl status stack-backend`
-* **Restart Backend**: `sudo systemctl restart stack-backend`
 * **Check Backend Logs**: `journalctl -u stack-backend -f`
+* **Test Nginx Config**: `sudo nginx -t`
 * **Restart Nginx**: `sudo systemctl restart nginx`
 
 ---
 
-## 📂 Server Paths (Updated)
-* **API Code**: `/var/www/stack`
-* **Website Files**: `/var/www/stack/dist/browser` (Previously /var/www/stack-frontend)
-* **Nginx Config**: `/etc/nginx/sites-available/stack`
+## 📂 Server Configuration Reference
+
+* **Main Project Root**: `/var/www/stack`
+* **Frontend Build Files**: `/var/www/stack/dist/browser`
+* **Backend Config**: `/etc/nginx/sites-available/stack` (agency.stacknix.it.com)
+* **Frontend Config**: `/etc/nginx/sites-available/stacknix-main` (stacknix.it.com)

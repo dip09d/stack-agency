@@ -22,31 +22,39 @@
 </section>
 
 <!-- How We Work Section -->
-<section class="py-16 md:py-24 lg:py-40 bg-soft-gray overflow-hidden">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<section class="py-16 md:py-24 lg:py-40 bg-soft-gray overflow-hidden relative">
+  <!-- Background Decorative Shapes -->
+  <div class="bg-shape-1"></div>
+  <div class="bg-shape-2"></div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
     <div class="mb-20 text-center">
+      <span class="text-accent font-black uppercase tracking-[0.3em] text-[10px] md:text-xs mb-4 block">Process</span>
       <h2 class="text-4xl md:text-6xl font-black text-primary mb-6 tracking-tight">How We Work<span class="text-accent">.</span></h2>
       <p class="text-slate-500 max-w-2xl mx-auto text-lg font-medium">Our structured process ensures every project is delivered on time, within budget, and to the highest standards.</p>
     </div>
 
     <div class="relative">
       <!-- Horizontal line (visible on large screens) -->
-      <div class="hidden lg:block absolute top-1/2 left-0 w-full h-0.5 bg-slate-200 -translate-y-1/2"></div>
+      <div class="hidden lg:block absolute top-[48px] left-0 w-full h-0.5 bg-slate-200 timeline-line"></div>
       
       <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-12 relative z-10">
         @for (step of [
-          { title: 'Discovery', desc: 'We dive deep into your business goals and user needs.' },
-          { title: 'Design', desc: 'Crafting intuitive and beautiful user interfaces.' },
-          { title: 'Development', desc: 'Building robust solutions with cutting-edge tech.' },
-          { title: 'Launch', desc: 'Ensuring a smooth rollout and optimal performance.' },
-          { title: 'Support', desc: 'Providing ongoing care to keep your site growing.' }
+          { title: 'Discovery', icon: 'search', desc: 'We dive deep into your business goals and user needs.' },
+          { title: 'Design', icon: 'palette', desc: 'Crafting intuitive and beautiful user interfaces.' },
+          { title: 'Development', icon: 'terminal', desc: 'Building robust solutions with cutting-edge tech.' },
+          { title: 'Launch', icon: 'rocket_launch', desc: 'Ensuring a smooth rollout and optimal performance.' },
+          { title: 'Support', icon: 'auto_awesome', desc: 'Providing ongoing care to keep your site growing.' }
         ]; track step.title; let i = $index) {
-          <div class="text-center group">
-            <div class="w-16 h-16 bg-white border-2 border-slate-200 rounded-full flex items-center justify-center text-primary font-black text-xl mb-6 mx-auto group-hover:border-accent group-hover:text-accent transition-all">
-              {{ i + 1 }}
+          <div class="text-center group step-card cursor-default">
+            <div class="w-24 h-24 bg-white border-2 border-slate-100 rounded-[32px] flex flex-col items-center justify-center mb-8 mx-auto step-number-container shadow-xl shadow-slate-200/50 group-hover:border-accent transition-all relative">
+              <span class="absolute -top-3 -right-3 w-8 h-8 bg-accent text-white rounded-full flex items-center justify-center text-xs font-black shadow-lg shadow-accent/20">
+                {{ i + 1 }}
+              </span>
+              <span class="material-icons text-3xl text-slate-300 step-icon group-hover:text-accent transition-colors">{{ step.icon }}</span>
             </div>
-            <h4 class="text-xl font-bold text-primary mb-3">{{ step.title }}</h4>
-            <p class="text-slate-500 text-sm leading-relaxed px-4">{{ step.desc }}</p>
+            <h4 class="text-xl font-black text-primary mb-4 tracking-tight group-hover:text-accent transition-colors">{{ step.title }}</h4>
+            <p class="text-slate-500 text-sm leading-relaxed px-2 font-medium opacity-80 group-hover:opacity-100 transition-opacity">{{ step.desc }}</p>
           </div>
         }
       </div>
