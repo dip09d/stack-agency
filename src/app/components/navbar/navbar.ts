@@ -2,6 +2,8 @@ import { Component, HostListener, signal, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive, Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs';
 
+import { AgencyService } from '../../services/agency.service';
+
 @Component({
   selector: 'app-navbar',
   imports: [RouterLink, RouterLinkActive],
@@ -13,6 +15,17 @@ export class Navbar {
   isMenuOpen = signal(false);
   isLightPage = signal(false);
   private router = inject(Router);
+  private agencyService = inject(AgencyService);
+  
+  settings = this.agencyService.getSettings();
+  
+  menuItems = [
+    { name: 'Home', path: '/' },
+    { name: 'Services', path: '/services' },
+    { name: 'Portfolio', path: '/portfolio' },
+    { name: 'About', path: '/about' },
+    { name: 'Contact', path: '/contact' }
+  ];
 
   constructor() {
     this.router.events.pipe(
@@ -27,9 +40,8 @@ export class Navbar {
   }
 
   private updatePageState() {
-    const url = this.router.url;
-    // About and Portfolio have light/white heroes, so they need a dark header
-    this.isLightPage.set(url.includes('/about') || url.includes('/portfolio'));
+    // All pages now use the dark premium hero, so we don't need light page logic
+    this.isLightPage.set(false);
   }
 
   @HostListener('window:scroll', [])

@@ -1,21 +1,24 @@
-<div class="bg-white p-5 md:p-10 rounded-[32px] border border-slate-100 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.05)] hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.1)] hover:-translate-y-2 transition-all duration-500 group flex flex-col h-full">
-  <div class="w-16 h-16 bg-soft-gray rounded-2xl flex items-center justify-center text-primary mb-8 group-hover:bg-accent group-hover:text-white transition-all duration-500 shrink-0 shadow-inner group-hover:shadow-accent/20">
-    <span class="material-icons-outlined text-4xl leading-none select-none">{{ service().icon }}</span>
+<div class="group relative bg-white p-10 md:p-14 rounded-[32px] border border-slate-100 shadow-[0_15px_40px_rgba(0,0,0,0.02)] hover:shadow-[0_40px_80px_rgba(0,0,0,0.08)] hover:border-accent/20 transition-all duration-700 flex flex-col items-center text-center h-full overflow-hidden">
+  
+  <!-- Centered Icon Container -->
+  <div class="w-24 h-24 bg-primary rounded-full flex items-center justify-center text-white mb-10 group-hover:bg-accent transition-all duration-500 shadow-xl shadow-primary/10 group-hover:shadow-accent/20 transform group-hover:scale-110">
+    <span class="material-icons-outlined text-4xl select-none">{{ service().icon }}</span>
   </div>
-  <h3 class="text-2xl font-black text-primary mb-4 group-hover:text-accent transition-colors">{{ service().title }}</h3>
-  <p class="text-slate-500 mb-8 leading-relaxed flex-grow font-medium">
-    {{ service().description }}
-  </p>
-  <ul class="space-y-3 mb-10">
-    @for (feature of service().features; track feature) {
-      <li class="flex items-center text-sm font-semibold text-slate-600">
-        <span class="material-icons text-accent text-lg mr-3">check_circle</span>
-        {{ feature }}
-      </li>
-    }
-  </ul>
-  <a routerLink="/services" class="inline-flex items-center font-black text-primary group-hover:text-accent transition-all uppercase tracking-widest text-xs">
-    Learn More
-    <span class="material-icons ml-2 text-lg group-hover:translate-x-2 transition-transform">arrow_forward</span>
-  </a>
+
+  <div class="flex-grow">
+    <h3 class="text-2xl font-black text-primary mb-6 tracking-tight group-hover:text-accent transition-colors uppercase">
+      {{ service().title }}
+    </h3>
+    
+    <p class="text-slate-500 mb-8 leading-relaxed font-medium">
+      {{ service().description }}
+    </p>
+  </div>
+
+  <div class="mt-auto">
+    <a routerLink="/services" class="inline-flex items-center gap-2 py-3 px-8 bg-primary text-white font-black rounded-lg group-hover:bg-accent transition-all shadow-lg shadow-primary/10 uppercase tracking-widest text-[10px]">
+      Learn More
+      <span class="material-icons text-sm">arrow_forward</span>
+    </a>
+  </div>
 </div>

@@ -1,29 +1,49 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #1a1a2e;
-  --color-accent: #ff6b35;
-  --color-secondary: #008080; /* Soft Teal */
-  --color-soft-gray: #f8f9fa;
+  --color-primary: #050508;
+  --color-secondary: #0f172a;
+  --color-accent: #3b82f6;
+  --color-accent-vibrant: #60a5fa;
+  --color-glass: rgba(255, 255, 255, 0.03);
+  --color-glass-border: rgba(255, 255, 255, 0.08);
 }
 
-html {
-  scroll-behavior: smooth;
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: #050508;
+    color: #cbd5e1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: white;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+  }
 }
 
-body {
-  @apply bg-white text-slate-800 antialiased;
-  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-  overflow-x: hidden;
+@layer utilities {
+  .glass {
+    @apply bg-glass border border-glass-border backdrop-blur-xl;
+  }
+  
+  .glass-dark {
+    @apply bg-black/40 border border-white/10 backdrop-blur-2xl;
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-slate-500;
+  }
+
+  .accent-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-400;
+  }
 }
-
-* {
-  transition: background-color 0.3s ease, border-color 0.3s ease;
-}
-
-.bg-navy { background-color: var(--color-primary); }
-.text-navy { color: var(--color-primary); }
-.bg-coral { background-color: var(--color-accent); }
-.text-coral { color: var(--color-accent); }
-

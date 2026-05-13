@@ -4,7 +4,7 @@ import { ServiceCard } from '../../components/service-card/service-card';
 
 @Component({
   selector: 'app-services',
-  imports: [ServiceCard],
+  imports: [],
   templateUrl: './services.html',
   styleUrl: './services.css',
 })

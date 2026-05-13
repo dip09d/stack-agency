@@ -1,36 +1,42 @@
-<div class="bg-white rounded-[32px] border border-slate-100 overflow-hidden shadow-[0_10px_30px_-10px_rgba(0,0,0,0.05)] hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.1)] transition-all duration-700 group h-full flex flex-col">
-  <div class="relative aspect-[4/3] overflow-hidden bg-slate-100">
+<div class="group relative bg-white rounded-[40px] border border-slate-100/50 overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.04)] hover:shadow-[0_40px_100px_rgba(0,0,0,0.1)] transition-all duration-700 h-full flex flex-col">
+  <div class="relative aspect-[16/10] overflow-hidden bg-soft-gray">
     <img [src]="project().imageUrl" [alt]="project().name" 
-         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 ease-out">
+         class="w-full h-full object-cover group-hover:scale-110 group-hover:rotate-1 transition-transform duration-[1.5s] ease-out">
     
     <!-- Premium Overlay -->
-    <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center backdrop-blur-md">
-      <a routerLink="/contact" [queryParams]="{project: project().name}" class="px-8 py-4 bg-white text-primary font-black rounded-2xl transform translate-y-8 group-hover:translate-y-0 transition-all duration-500 shadow-2xl uppercase tracking-widest text-xs hover:bg-accent hover:text-white">
-        View Project
-      </a>
+    <div class="absolute inset-0 bg-primary/60 opacity-0 group-hover:opacity-100 transition-all duration-700 flex items-center justify-center backdrop-blur-sm">
+      <div class="flex flex-col items-center gap-6 translate-y-10 group-hover:translate-y-0 transition-all duration-700 delay-100">
+        <a routerLink="/portfolio" class="px-10 py-4 bg-white text-primary font-black rounded-2xl shadow-2xl uppercase tracking-widest text-xs hover:bg-accent hover:text-white transition-all hover:scale-105">
+          View Project
+        </a>
+      </div>
     </div>
 
     <!-- Category Badge -->
     <div class="absolute top-6 left-6">
-      <span class="px-4 py-2 bg-white/90 backdrop-blur-md text-primary text-[10px] font-black uppercase tracking-widest rounded-xl shadow-lg border border-white/20">
+      <span class="px-5 py-2.5 bg-white/95 backdrop-blur-xl text-primary text-[10px] font-black uppercase tracking-[0.2em] rounded-2xl shadow-xl border border-white/20">
         {{ project().category }}
       </span>
     </div>
   </div>
   
-  <div class="p-6 md:p-8 flex-grow">
-    <h3 class="text-2xl font-black text-primary mb-3 group-hover:text-accent transition-colors leading-tight">
+  <div class="p-8 md:p-10 flex-grow">
+    <div class="mb-4 flex items-center gap-2">
+       <div class="w-8 h-[2px] bg-accent/30 group-hover:w-12 transition-all duration-700"></div>
+       <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Case Study</span>
+    </div>
+    <h3 class="text-3xl font-black text-primary mb-4 group-hover:text-accent transition-colors leading-[1.1] tracking-tighter">
       {{ project().name }}
     </h3>
-    <p class="text-slate-500 text-sm font-medium leading-relaxed mb-4">
+    <p class="text-slate-500 text-base md:text-lg leading-relaxed font-medium mb-8">
       {{ project().description }}
     </p>
   </div>
   
-  <div class="px-6 pb-6 md:px-8 md:pb-8">
-     <div class="w-full h-px bg-slate-100 mb-6 group-hover:bg-accent/20 transition-colors"></div>
-     <div class="flex items-center text-accent text-[10px] font-black uppercase tracking-[0.2em]">
-        Explore Case Study
-     </div>
+  <div class="px-8 pb-8 md:px-10 md:pb-10">
+     <a routerLink="/portfolio" class="inline-flex items-center gap-3 text-primary group-hover:text-accent transition-all duration-500 text-xs font-black uppercase tracking-[0.2em]">
+        Explore Details
+        <span class="material-icons text-base translate-x-0 group-hover:translate-x-2 transition-transform">arrow_forward</span>
+     </a>
   </div>
 </div>

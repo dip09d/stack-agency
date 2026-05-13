@@ -1,92 +1,44 @@
-/* HERO SECTION */
-.home-hero {
-  position: relative;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  background: #0a0a1a;
-  overflow: hidden;
-  padding-top: 80px;
+@reference "../../../styles.css";
+
+@keyframes slow-zoom {
+  from { transform: scale(1); }
+  to { transform: scale(1.1); }
 }
 
-.home-hero-orb-1 {
-  position: absolute;
-  top: -10%;
-  right: -5%;
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, rgba(255, 107, 53, 0.15) 0%, transparent 70%);
-  filter: blur(80px);
-  animation: pulse-slow 10s infinite alternate;
-}
-
-.home-hero-orb-2 {
-  position: absolute;
-  bottom: -10%;
-  left: -5%;
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
-  filter: blur(80px);
-  animation: pulse-slow 12s infinite alternate-reverse;
-}
-
-.home-hero-grid {
-  position: absolute;
-  inset: 0;
-  background-image: 
-    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-  background-size: 80px 80px;
-  mask-image: radial-gradient(circle at 30% 30%, black, transparent);
-  -webkit-mask-image: radial-gradient(circle at 30% 30%, black, transparent);
-}
-
-@keyframes pulse-slow {
-  from { transform: scale(1) translate(0, 0); opacity: 0.5; }
-  to { transform: scale(1.1) translate(20px, -20px); opacity: 0.8; }
-}
-
-@keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-20px); }
-  100% { transform: translateY(0px); }
-}
-
-.animate-float {
-  animation: float 6s ease-in-out infinite;
-}
-
-.animate-fade-in {
-  animation: fadeIn 1s ease-out forwards;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* CARDS & HOVERS */
-.hover-lift {
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
-}
-
-.hover-lift:hover {
-  transform: translateY(-12px);
-}
-
-.project-hover-effect {
-  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.project-hover-effect:hover {
-  transform: translateY(-8px) scale(1.02);
-}
-
-/* MOBILE RESPONSIVE */
-@media (max-width: 768px) {
-  .home-hero {
-    min-height: auto;
-    padding: 140px 0 100px;
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
   }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slow-zoom {
+  animation: slow-zoom 20s linear infinite alternate;
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+}
+
+.animate-bounce {
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {transform: translateY(0) translateX(-50%);}
+  40% {transform: translateY(-10px) translateX(-50%);}
+  60% {transform: translateY(-5px) translateX(-50%);}
+}
+
+:host {
+  display: block;
+}
+
+section {
+  position: relative;
 }

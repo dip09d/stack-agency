@@ -1,57 +1,67 @@
-<footer class="bg-primary text-white pt-20 pb-10">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+<footer class="bg-[#050508] text-white pt-32 pb-20 border-t border-white/5 relative overflow-hidden">
+  <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-blue-500/50 to-transparent"></div>
+  
+  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-20">
       <!-- Col 1: About -->
-      <div>
-        <h3 class="text-2xl font-black tracking-tighter mb-6">STACK<span class="text-accent">.</span></h3>
-        <p class="text-slate-400 leading-relaxed">
-          Building powerful digital presences for startups and enterprises. Design-focused, results-driven.
+      <div class="space-y-8">
+        <a routerLink="/" class="text-3xl font-black tracking-tighter block">STACK<span class="text-blue-500">.</span></a>
+        <p class="text-slate-400 leading-relaxed text-sm">
+          Architecting high-performance digital solutions for the visionaries of tomorrow. Design-focused, technically-rigorous.
         </p>
+        <div class="flex gap-4">
+          <a href="#" class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center hover:bg-blue-600 transition-all border border-white/5 group">
+            <svg class="w-5 h-5 text-slate-400 group-hover:text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.84 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>
+          </a>
+          <a href="#" class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center hover:bg-blue-600 transition-all border border-white/5 group">
+            <svg class="w-5 h-5 text-slate-400 group-hover:text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+          </a>
+        </div>
       </div>
 
       <!-- Col 2: Services -->
       <div>
-        <h4 class="text-lg font-bold mb-6">Services</h4>
-        <ul class="space-y-4 text-slate-400">
-          <li><a routerLink="/services" class="hover:text-accent transition-colors">Food Delivery</a></li>
-          <li><a routerLink="/services" class="hover:text-accent transition-colors">E-Commerce</a></li>
-          <li><a routerLink="/services" class="hover:text-accent transition-colors">Marketplaces</a></li>
-          <li><a routerLink="/services" class="hover:text-accent transition-colors">Custom Apps</a></li>
+        <h4 class="text-white font-bold mb-8 uppercase tracking-widest text-xs">Solutions</h4>
+        <ul class="space-y-4 text-slate-400 text-sm">
+          <li><a routerLink="/services" class="hover:text-blue-400 transition-colors">Custom Software</a></li>
+          <li><a routerLink="/services" class="hover:text-blue-400 transition-colors">Cloud Migration</a></li>
+          <li><a routerLink="/services" class="hover:text-blue-400 transition-colors">AI Implementation</a></li>
+          <li><a routerLink="/services" class="hover:text-blue-400 transition-colors">Digital Strategy</a></li>
         </ul>
       </div>
 
       <!-- Col 3: Company -->
       <div>
-        <h4 class="text-lg font-bold mb-6">Company</h4>
-        <ul class="space-y-4 text-slate-400">
-          <li><a routerLink="/portfolio" class="hover:text-accent transition-colors">Portfolio</a></li>
-          <li><a routerLink="/about" class="hover:text-accent transition-colors">Our Story</a></li>
-          <li><a routerLink="/contact" class="hover:text-accent transition-colors">Contact Us</a></li>
-          <li><a routerLink="/about" class="hover:text-accent transition-colors">Careers</a></li>
+        <h4 class="text-white font-bold mb-8 uppercase tracking-widest text-xs">Company</h4>
+        <ul class="space-y-4 text-slate-400 text-sm">
+          <li><a routerLink="/portfolio" class="hover:text-blue-400 transition-colors">Case Studies</a></li>
+          <li><a routerLink="/about" class="hover:text-blue-400 transition-colors">About Story</a></li>
+          <li><a routerLink="/contact" class="hover:text-blue-400 transition-colors">Work With Us</a></li>
+          <li><a routerLink="/about" class="hover:text-blue-400 transition-colors">Our Culture</a></li>
         </ul>
       </div>
 
       <!-- Col 4: Newsletter -->
       <div>
-        <h4 class="text-lg font-bold mb-6">Stay Updated</h4>
-        <p class="text-slate-400 mb-4 text-sm">Join our newsletter for the latest tech insights.</p>
-        <div class="flex">
+        <h4 class="text-white font-bold mb-8 uppercase tracking-widest text-xs">Join the Evolution</h4>
+        <p class="text-slate-400 mb-6 text-sm">Stay ahead of the curve with our monthly tech briefings.</p>
+        <div class="flex flex-col gap-3">
           <input type="email" placeholder="Email address" 
-                 class="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-l-lg focus:outline-none focus:border-accent">
-          <button class="bg-accent px-4 py-2 rounded-r-lg font-bold hover:brightness-110 transition-all">
-            Join
+                 class="w-full px-5 py-3 bg-white/5 border border-white/10 rounded-xl text-sm focus:outline-none focus:border-blue-500 transition-colors">
+          <button class="bg-blue-600 px-5 py-3 rounded-xl font-bold text-sm hover:bg-blue-500 transition-all shadow-lg shadow-blue-500/20">
+            Subscribe
           </button>
         </div>
       </div>
     </div>
     
-    <div class="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-slate-500 text-sm">
+    <div class="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-slate-500 text-xs gap-4">
       <p>&copy; {{ currentYear }} Stack Agency. All rights reserved.</p>
-      <div class="flex space-x-6 mt-4 md:mt-0">
-        <a href="#" class="hover:text-white transition-colors">Twitter</a>
-        <a href="#" class="hover:text-white transition-colors">LinkedIn</a>
-        <a href="#" class="hover:text-white transition-colors">GitHub</a>
+      <div class="flex space-x-8">
+        <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+        <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
       </div>
     </div>
   </div>
 </footer>
+

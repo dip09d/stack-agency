@@ -1,0 +1,23 @@
+/* PROJECT CARD PREMIUM EFFECTS */
+:host {
+  display: block;
+  height: 100%;
+}
+
+.group {
+  perspective: 1000px;
+}
+
+img {
+  will-change: transform;
+}
+
+/* Subtle border glow on hover */
+.group:hover {
+  border-color: rgba(255, 107, 53, 0.1);
+}
+
+/* Custom easing for the button reveal */
+.group-hover\:translate-y-0 {
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}

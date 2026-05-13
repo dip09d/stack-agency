@@ -6,7 +6,7 @@ import { ProjectCard } from '../../components/project-card/project-card';
 
 @Component({
   selector: 'app-home',
-  imports: [RouterLink, ServiceCard, ProjectCard],
+  imports: [],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
