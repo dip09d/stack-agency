@@ -1,18 +1,18 @@
 <!-- Modern Floating Alert -->
 @if (showSuccess()) {
-  <div class="fixed top-24 right-4 left-4 md:left-auto md:right-6 z-[999] w-auto md:w-full md:max-w-sm animate-slide-in">
-    <div class="glass-dark border border-green-500/30 rounded-xl p-4 shadow-2xl shadow-green-500/20 flex items-center gap-4 overflow-hidden">
-      <div class="w-12 h-12 bg-green-500/20 rounded-xl flex items-center justify-center shrink-0 border border-green-500/20">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6 text-green-400">
+  <div class="fixed bottom-6 left-6 right-6 md:bottom-auto md:top-24 md:right-6 md:left-auto z-[999] md:max-w-sm animate-slide-up md:animate-slide-in">
+    <div class="glass-dark border border-green-500/30 rounded-2xl p-4 shadow-2xl shadow-green-500/20 flex items-center gap-4 overflow-hidden">
+      <div class="w-10 h-10 md:w-12 md:h-12 bg-green-500/20 rounded-xl flex items-center justify-center shrink-0 border border-green-500/20">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5 md:w-6 md:h-6 text-green-400">
           <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
         </svg>
       </div>
-      <div class="flex-grow">
-        <h4 class="text-white font-bold text-lg leading-tight mb-0.5">Mission Accomplished!</h4>
-        <p class="text-slate-400 text-sm">Your technical vision is now in our hands. We'll be in touch shortly.</p>
+      <div class="flex-grow min-w-0">
+        <h4 class="text-white font-bold text-sm md:text-base leading-tight mb-0.5">Success!</h4>
+        <p class="text-slate-400 text-[10px] md:text-xs truncate">We'll be in touch shortly.</p>
       </div>
-      <button (click)="closeSuccess()" class="text-slate-500 hover:text-white transition-colors">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+      <button (click)="closeSuccess()" class="w-8 h-8 flex items-center justify-center text-slate-500 hover:text-white transition-colors rounded-lg hover:bg-white/5">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
           <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
         </svg>
       </button>
@@ -126,9 +126,9 @@
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div class="w-full">
               <label class="block text-slate-400 text-xs font-bold uppercase tracking-widest mb-2">Phone Number</label>
-              <div class="flex gap-2 w-full">
-                <div class="relative w-[100px] md:w-[110px] shrink-0">
-                  <select formControlName="countryCode" class="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-4 text-white focus:border-blue-500 outline-none transition-colors appearance-none cursor-pointer text-xs md:text-sm">
+              <div class="flex gap-2 w-full h-[58px]">
+                <div class="relative w-[85px] md:w-[110px] h-full shrink-0">
+                  <select formControlName="countryCode" class="w-full h-full bg-white/5 border border-white/10 rounded-xl px-3 text-white focus:border-blue-500 outline-none transition-colors appearance-none cursor-pointer text-xs md:text-sm">
                     @for (item of countryCodes; track item.code) {
                       <option [value]="item.code" class="bg-[#050508]">{{ item.flag }} {{ item.code }}</option>
                     }
@@ -139,7 +139,7 @@
                     </svg>
                   </div>
                 </div>
-                <input type="text" formControlName="phone" class="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white focus:border-blue-500 outline-none transition-colors" [class.border-red-500]="contactForm.get('phone')?.touched && contactForm.get('phone')?.invalid" placeholder="98765 43210">
+                <input type="text" formControlName="phone" class="w-full h-full bg-white/5 border border-white/10 rounded-xl px-5 text-white focus:border-blue-500 outline-none transition-colors" [class.border-red-500]="contactForm.get('phone')?.touched && contactForm.get('phone')?.invalid" placeholder="98765 43210">
               </div>
               @if (contactForm.get('phone')?.touched && contactForm.get('phone')?.invalid) {
                 <p class="text-red-500 text-[10px] font-bold uppercase tracking-tighter mt-1 animate-in fade-in slide-in-from-top-1">8-12 digits required</p>
