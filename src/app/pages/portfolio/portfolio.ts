@@ -1,10 +1,11 @@
 import { Component, inject, signal, computed } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { AgencyService } from '../../services/agency.service';
 import { ProjectCard } from '../../components/project-card/project-card';
 
 @Component({
   selector: 'app-portfolio',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './portfolio.html',
   styleUrl: './portfolio.css',
 })

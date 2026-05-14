@@ -14,16 +14,39 @@ export class Contact implements OnInit {
   private agencyService = inject(AgencyService);
   settings = this.agencyService.getSettings();
   showSuccess = signal(false);
+  isLoading = signal(false);
 
   contactForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
-    phone: new FormControl('+91 ', [Validators.required]),
+    countryCode: new FormControl('+91', [Validators.required]),
+    phone: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]{8,12}$/)]),
     company: new FormControl(''),
     projectType: new FormControl('Food Delivery', [Validators.required]),
     budget: new FormControl('$5k - $10k', [Validators.required]),
     message: new FormControl('', [Validators.required]),
   });
+
+  countryCodes = [
+    { code: '+91', name: 'India', flag: '🇮🇳' },
+    { code: '+1', name: 'USA', flag: '🇺🇸' },
+    { code: '+44', name: 'UK', flag: '🇬🇧' },
+    { code: '+61', name: 'Australia', flag: '🇦🇺' },
+    { code: '+971', name: 'UAE', flag: '🇦🇪' },
+    { code: '+1', name: 'Canada', flag: '🇨🇦' },
+    { code: '+49', name: 'Germany', flag: '🇩🇪' },
+    { code: '+33', name: 'France', flag: '🇫🇷' },
+    { code: '+81', name: 'Japan', flag: '🇯🇵' },
+    { code: '+86', name: 'China', flag: '🇨🇳' },
+    { code: '+65', name: 'Singapore', flag: '🇸🇬' },
+    { code: '+39', name: 'Italy', flag: '🇮🇹' },
+    { code: '+34', name: 'Spain', flag: '🇪🇸' },
+    { code: '+55', name: 'Brazil', flag: '🇧🇷' },
+    { code: '+27', name: 'South Africa', flag: '🇿🇦' },
+    { code: '+7', name: 'Russia', flag: '🇷🇺' },
+    { code: '+82', name: 'South Korea', flag: '🇰🇷' },
+    { code: '+52', name: 'Mexico', flag: '🇲🇽' },
+  ];
 
   projectTypes = ['Food Delivery', 'E-Commerce', 'Marketplace', 'Custom App', 'Redesign', 'Maintenance'];
   budgets = ['$5k - $10k', '$10k - $25k', '$25k - $50k', '$50k+'];
@@ -48,20 +71,46 @@ export class Contact implements OnInit {
   }
 
   async onSubmit() {
-    if (this.contactForm.valid) {
+    if (this.contactForm.valid && !this.isLoading()) {
+      this.isLoading.set(true);
       try {
-        await this.agencyService.submitEnquiry(this.contactForm.value);
+        const formData = {
+          ...this.contactForm.value,
+          phone: `${this.contactForm.value.countryCode} ${this.contactForm.value.phone}`
+        };
+        delete (formData as any).countryCode;
+
+        await this.agencyService.submitEnquiry(formData);
         this.showSuccess.set(true);
         this.contactForm.reset({
           projectType: 'Food Delivery',
           budget: '$5k - $10k',
-          phone: '+91 '
+          countryCode: '+91',
+          phone: ''
         });
+        
+        // Auto-hide after 5 seconds
+        setTimeout(() => {
+          this.showSuccess.set(false);
+        }, 5000);
       } catch (error) {
         console.error('Submission failed:', error);
         alert('Sorry, there was an error submitting your enquiry. Please try again later.');
+      } finally {
+        this.isLoading.set(false);
       }
+    } else {
+      this.markFormGroupTouched(this.contactForm);
     }
+  }
+
+  private markFormGroupTouched(formGroup: FormGroup) {
+    Object.values(formGroup.controls).forEach(control => {
+      control.markAsTouched();
+      if ((control as any).controls) {
+        this.markFormGroupTouched(control as FormGroup);
+      }
+    });
   }
 
   closeSuccess() {

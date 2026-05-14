@@ -50,10 +50,19 @@ export class Navbar {
   }
 
   toggleMenu() {
-    this.isMenuOpen.update(v => !v);
+    this.isMenuOpen.update(v => {
+      const newState = !v;
+      if (newState) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = 'auto';
+      }
+      return newState;
+    });
   }
 
   closeMenu() {
     this.isMenuOpen.set(false);
+    document.body.style.overflow = 'auto';
   }
 }
